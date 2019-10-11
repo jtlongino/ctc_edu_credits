@@ -61,6 +61,7 @@
     var taxableScholarship = totalGrantsScholarships - qualifiedExpensesAll;
     if(taxableScholarship < 0) taxableScholarship = 0;
     document.getElementById("taxableScholarship").textContent = formatter.format(taxableScholarship);
+
     //Line 1
     var line1;
     if(creditType == "aoc") {
@@ -91,6 +92,12 @@
     document.getElementById("line6").textContent = formatter.format(line6);
     //Line 7
     var line7 = grantLiving - taxableScholarship;
+    // Transfer override
+    var maxTransfer = grantLiving;
+    if(document.getElementById("overrideTransfer").checked) {
+      maxTransfer = parseInt(document.getElementById("maxTransfer").value);
+    }
+    if(line7 > maxTransfer) line7 = maxTransfer;
     if(line7 < 0) line7 = 0;
     document.getElementById("line7").textContent = formatter.format(line7);
     //Line 8
@@ -104,15 +111,24 @@
     //Line 10
     var line10 = line7 - line8 - line9;
     if(line10 < 0) line10 = 0;
+     
+
+    
     document.getElementById("line10").textContent = formatter.format(line10);
     //Return expenses
-    returnExpenses = Math.min(line1, line6);
+    returnExpenses = Math.min(line1, qualifiedExpensesForCredit + line10);
     document.getElementById("returnExpenses").textContent = formatter.format(returnExpenses);
     //Return Income
     returnIncome = line10 + taxableScholarship;
     document.getElementById("returnIncome").textContent = formatter.format(returnIncome);
     //Alert if grants and scholarships that must be used for tuition and fees is greater than tuition and fees
     if(qualifiedExpensesAll < line4) { alert("Amount of 1099-Q distributions and grants and scholarships that must be used for tuition and fees are greater than actual tuition and fees. This return should be referred to the drop off program. Please consult tax site manager or VLT member."); }
+    //Enable scholarship/grant section if needed
+    if(line10 > 0 || document.getElementById("overrideTransfer").checked) {
+      document.getElementById('transfer').style.display = "block";
+    } else {
+      document.getElementById('transfer').style.display = "none";
+    }
   };
   var classname = document.getElementsByClassName("input-value");
   for (var i = 0; i < classname.length; i++) {
