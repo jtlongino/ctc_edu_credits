@@ -78,7 +78,7 @@
     if(line3 < 0) line3 = 0;
     document.getElementById("line3").textContent = formatter.format(line3);
     //Line 4
-    var line4 = grantNonLiving + scholarshipNonLiving + distributions;
+    var line4 = grantNonLiving + distributions;
     if(line4 < 0) line4 = 0;
     document.getElementById("line4").textContent = formatter.format(line4);
     //Line 5
@@ -90,7 +90,7 @@
     if(line6 < 0) line6 = 0;
     document.getElementById("line6").textContent = formatter.format(line6);
     //Line 7
-    var line7 = grantLiving + scholarshipLiving - taxableScholarship;
+    var line7 = grantLiving - taxableScholarship;
     if(line7 < 0) line7 = 0;
     document.getElementById("line7").textContent = formatter.format(line7);
     //Line 8
