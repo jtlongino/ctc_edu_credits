@@ -50,10 +50,8 @@
     //Grants and scholarships
     var grantLiving = parseInt(document.getElementById("grantLiving").value) || 0;
     var grantNonLiving = parseInt(document.getElementById("grantNonLiving").value) || 0;
-    var scholarshipLiving = parseInt(document.getElementById("scholarshipLiving").value) || 0;
-    var scholarshipNonLiving = parseInt(document.getElementById("scholarshipNonLiving").value) || 0;
     var distributions = parseInt(document.getElementById("distributions").value) || 0;
-    var totalGrantsScholarships = grantLiving + grantNonLiving + scholarshipLiving + scholarshipNonLiving + distributions;
+    var totalGrantsScholarships = grantLiving + grantNonLiving + distributions;
     document.getElementById("totalGrantsScholarships").textContent = formatter.format(totalGrantsScholarships);
     //Qualified Expenses for Credit
     var qualifiedExpensesForCredit = qualifiedExpensesCredit - totalGrantsScholarships;
