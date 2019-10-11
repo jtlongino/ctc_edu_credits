@@ -12,7 +12,7 @@
   function updateOutputs() {
     roundInputs();
     //Update Year
-    var taxYear = parseInt(document.getElementById('taxYearInput').value)||2018;
+    var taxYear = parseInt(document.getElementById('taxYearInput').value)||2019;
     var taxYearPlusOne = taxYear + 1;
     var yearSpans = document.getElementsByClassName("taxYear");
     for(i in yearSpans) { yearSpans[i].textContent = taxYear.toString(); }
