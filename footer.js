@@ -56,11 +56,11 @@
     //Qualified Expenses for Credit
     var qualifiedExpensesForCredit = qualifiedExpensesCredit - totalGrantsScholarships;
     if(qualifiedExpensesForCredit < 0) qualifiedExpensesForCredit = 0;
-    document.getElementById("qualifiedExpensesForCredit").textContent = formatter.format(qualifiedExpensesForCredit);
+    document.getElementById("qualifiedExpensesForCreditBeforeTransfer").textContent = formatter.format(qualifiedExpensesForCredit);
     //Taxable Scholarships
     var taxableScholarship = totalGrantsScholarships - qualifiedExpensesAll;
     if(taxableScholarship < 0) taxableScholarship = 0;
-    document.getElementById("taxableScholarship").textContent = formatter.format(taxableScholarship);
+    document.getElementById("taxableScholarshipBeforeTransfer").textContent = formatter.format(taxableScholarship);
 
     //Line 1
     var line1;
@@ -118,18 +118,28 @@
     //Return expenses
     returnExpenses = Math.min(line1, qualifiedExpensesForCredit + line10);
     document.getElementById("returnExpenses").textContent = formatter.format(returnExpenses);
+    document.getElementById("qualifiedExpensesForCreditAfterTransfer").textContent = formatter.format(returnExpenses);
     //Return Income
     returnIncome = line10 + taxableScholarship;
     document.getElementById("returnIncome").textContent = formatter.format(returnIncome);
+    document.getElementById("taxableScholarshipAfterTransfer").textContent = formatter.format(returnIncome);
     //Alert if grants and scholarships that must be used for tuition and fees is greater than tuition and fees
     if(qualifiedExpensesAll < line4) { alert("Amount of 1099-Q distributions and grants and scholarships that must be used for tuition and fees are greater than actual tuition and fees. This return should be referred to the drop off program. Please consult tax site manager or VLT member."); }
     //Enable scholarship/grant section if needed
+    var hideTransferElement = true;
     if(line10 > 0 || document.getElementById("overrideTransfer").checked) {
-      document.getElementById('transfer').style.display = "block";
-    } else {
-      document.getElementById('transfer').style.display = "none";
+      hideTransferElement = false;
     }
-  };
+    var transferElems = document.getElementsByClassName('transfer');
+    for (var i = 0; i < transferElems.length; i++) {
+      var transferDisplayType = hideTransferElement ? "none" : "block";
+      transferElems[i].style.display = transferDisplayType;
+    }
+    var transferElems = document.getElementsByClassName('transfer-table');
+    for (var i = 0; i < transferElems.length; i++) {
+      var transferDisplayType = hideTransferElement ? "none" : "table-cell";
+      transferElems[i].style.display = transferDisplayType;
+    }  };
   var classname = document.getElementsByClassName("input-value");
   for (var i = 0; i < classname.length; i++) {
       classname[i].addEventListener('change', updateOutputs, false);
