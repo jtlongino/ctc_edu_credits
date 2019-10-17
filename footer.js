@@ -1,5 +1,6 @@
 <script type="text/javascript">
   var formatter = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0,});
+  var scholarshipIncomeMax = {2019:"2200", 2018:"2100", 2017:"2100", 2016:"2100", 2015:"2100", 2014:"2000"};
   function roundInputs() {
     var classname = document.getElementsByClassName("input-value");
     for (var i = 0; i < classname.length; i++) {
@@ -18,6 +19,15 @@
     for(i in yearSpans) { yearSpans[i].textContent = taxYear.toString(); }
     var yearPlusOneSpans = document.getElementsByClassName("taxYearPlusOne");
     for(i in yearPlusOneSpans) { yearPlusOneSpans[i].textContent = taxYearPlusOne.toString(); }
+    //Update 8615 Income Limit
+    var scholarshipIncomeMaxElems = document.getElementsByClassName("scholarshipIncomeMax");
+    for(i in scholarshipIncomeMaxElems) { 
+      if(taxYear in scholarshipIncomeMax) {
+        scholarshipIncomeMaxElems[i].textContent = "$" + scholarshipIncomeMax[taxYear]; 
+      } else {
+        scholarshipIncomeMaxElems[i].textContent = "<consult Form 8615>"; 
+      }
+    }
     //Get credit type
     var creditType = document.querySelector('input[name = "creditType"]:checked').value;
     if(creditType == "llc") { 
