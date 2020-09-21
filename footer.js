@@ -1,6 +1,6 @@
 <script type="text/javascript">
   var formatter = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0,});
-  var scholarshipIncomeMax = {2019:"2200", 2018:"2100", 2017:"2100", 2016:"2100", 2015:"2100", 2014:"2000"};
+  var scholarshipIncomeMax = {2020:"2200", 2019:"2200", 2018:"2100", 2017:"2100", 2016:"2100", 2015:"2100", 2014:"2000"};
   function roundInputs() {
     var classname = document.getElementsByClassName("input-value");
     for (var i = 0; i < classname.length; i++) {
@@ -13,7 +13,7 @@
   function updateOutputs() {
     roundInputs();
     //Update Year
-    var taxYear = parseInt(document.getElementById('taxYearInput').value)||2019;
+    var taxYear = parseInt(document.getElementById('taxYearInput').value)||2020;
     var taxYearPlusOne = taxYear + 1;
     var yearSpans = document.getElementsByClassName("taxYear");
     for(i in yearSpans) { yearSpans[i].textContent = taxYear.toString(); }
@@ -126,7 +126,7 @@
     
     document.getElementById("line10").textContent = formatter.format(line10);
     //Return expenses
-    returnExpenses = Math.min(line1, qualifiedExpensesForCredit + line10);
+    returnExpenses = Math.min(line1, line6);
     document.getElementById("returnExpenses").textContent = formatter.format(returnExpenses);
     document.getElementById("qualifiedExpensesForCreditAfterTransfer").textContent = formatter.format(returnExpenses);
     //Return Income
