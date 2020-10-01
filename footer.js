@@ -63,15 +63,7 @@
     var distributions = parseInt(document.getElementById("distributions").value) || 0;
     var totalGrantsScholarships = grantLiving + grantNonLiving + distributions;
     document.getElementById("totalGrantsScholarships").textContent = formatter.format(totalGrantsScholarships);
-    //Qualified Expenses for Credit
-    var qualifiedExpensesForCredit = qualifiedExpensesCredit - totalGrantsScholarships;
-    if(qualifiedExpensesForCredit < 0) qualifiedExpensesForCredit = 0;
-    document.getElementById("qualifiedExpensesForCreditBeforeTransfer").textContent = formatter.format(qualifiedExpensesForCredit);
-    //Taxable Scholarships
-    var taxableScholarship = totalGrantsScholarships - qualifiedExpensesAll;
-    if(taxableScholarship < 0) taxableScholarship = 0;
-    document.getElementById("taxableScholarshipBeforeTransfer").textContent = formatter.format(taxableScholarship);
-
+    
     //Line 1
     var line1;
     if(creditType == "aoc") {
@@ -79,65 +71,72 @@
     } else {
       line1 = 10000;
     }
-    document.getElementById("expMax").textContent = formatter.format(line1);
+    document.getElementById("line1").textContent = formatter.format(line1);
     //Line 2
-    var line2 = qualifiedExpensesCredit;
+    var line2 = qualifiedExpensesAll - qualifiedExpensesCredit;
     if(line2 < 0) line2 = 0;
     document.getElementById("line2").textContent = formatter.format(line2);
     //Line 3
-    var line3 = qualifiedExpensesAll - qualifiedExpensesCredit;
-    if(line3 < 0) line3 = 0;
+    var line3 = Math.min(line2, grantNonLiving + distributions);
     document.getElementById("line3").textContent = formatter.format(line3);
     //Line 4
-    var line4 = grantNonLiving + distributions;
-    if(line4 < 0) line4 = 0;
+    var line4 = grantNonLiving + distributions - line3;
     document.getElementById("line4").textContent = formatter.format(line4);
     //Line 5
-    var line5 = line4 - line3;
-    if(line5 < 0) line5 = 0;
+    var line5 = line2 - line3;
     document.getElementById("line5").textContent = formatter.format(line5);
     //Line 6
-    var line6 = line2 - line5;
-    if(line6 < 0) line6 = 0;
+    var line6 = Math.min(line5, grantLiving);
     document.getElementById("line6").textContent = formatter.format(line6);
     //Line 7
-    var line7 = grantLiving - taxableScholarship;
+    var line7 = grantLiving - line6;
+    document.getElementById("line7").textContent = formatter.format(line7);
+    //Line 8
+    var line8 = qualifiedExpensesCredit - line4;
+    document.getElementById("line8").textContent = formatter.format(line8);
+    //Line 9
+    var line9 = line1;
+    if (line8 - line7 < line1) {
+      line9 = Math.max(line8 - line7, 0);
+    }
+    document.getElementById("line9").textContent = formatter.format(line9);
+    //Line 10
+    var line10 = Math.max(line7-line8, 0);
+    document.getElementById("line10").textContent = formatter.format(line10);
+    //Line 11
+    var line11 = Math.min(line7-line10, line1-line9);
     // Transfer override
-    var maxTransfer = grantLiving;
+    var maxTransfer = line11;
     if(document.getElementById("overrideTransfer").checked) {
       maxTransfer = parseInt(document.getElementById("maxTransfer").value);
     }
-    if(line7 > maxTransfer) line7 = maxTransfer;
-    if(line7 < 0) line7 = 0;
-    document.getElementById("line7").textContent = formatter.format(line7);
-    //Line 8
-    var line8 = line6 - line1;
-    if(line8 < 0) line8 = 0;
-    document.getElementById("line8").textContent = formatter.format(line8);
-    //Line 9
-    var line9 = line3 - line4;
-    if(line9 < 0) line9 = 0;
-    document.getElementById("line9").textContent = formatter.format(line9);
-    //Line 10
-    var line10 = line7 - line8 - line9;
-    if(line10 < 0) line10 = 0;
-     
+    line11 = Math.min(line11, maxTransfer);
+    document.getElementById("line11").textContent = formatter.format(line11);
+    //Line 12
+    var line12 = line9 + line11;
+    document.getElementById("line12").textContent = formatter.format(line12);
+    //Line 13
+    var line13 = line10 + line11;
+    document.getElementById("line13").textContent = formatter.format(line13);
+        
+    //Summary Qualified Expenses for Credit
+    document.getElementById("qualifiedExpensesForCreditBeforeTransfer").textContent = formatter.format(line9);
+    //Taxable Scholarships
+    document.getElementById("taxableScholarshipBeforeTransfer").textContent = formatter.format(line10);
 
-    
-    document.getElementById("line10").textContent = formatter.format(line10);
     //Return expenses
-    returnExpenses = Math.min(line1, line6);
+    returnExpenses = line12;
     document.getElementById("returnExpenses").textContent = formatter.format(returnExpenses);
     document.getElementById("qualifiedExpensesForCreditAfterTransfer").textContent = formatter.format(returnExpenses);
     //Return Income
-    returnIncome = line10 + taxableScholarship;
+    returnIncome = line13;
     document.getElementById("returnIncome").textContent = formatter.format(returnIncome);
     document.getElementById("taxableScholarshipAfterTransfer").textContent = formatter.format(returnIncome);
     //Alert if grants and scholarships that must be used for tuition and fees is greater than tuition and fees
-    if(qualifiedExpensesAll < line4) { alert("Amount of 1099-Q distributions and grants and scholarships that must be used for tuition and fees are greater than actual tuition and fees. This return should be referred to the drop off program. Please consult tax site manager or VLT member."); }
+    if(totalTuitionAll < (grantNonLiving + distributions)) { alert("Amount of 1099-Q distributions and grants and scholarships that must be used for tuition and fees are greater than actual tuition and fees. This return should be referred to the drop off program. Please consult tax site manager or VLT member."); }
     //Enable scholarship/grant section if needed
-    var hideTransferElement = true;
-    if(line10 > 0 || document.getElementById("overrideTransfer").checked) {
+    var hideTransferElement = false;
+    if(line7 > 0 || document.getElementById("overrideTransfer").checked) {
       hideTransferElement = false;
     }
     var transferElems = document.getElementsByClassName('transfer');
