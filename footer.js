@@ -3,12 +3,31 @@
   var scholarshipIncomeMax = {2020:"2200", 2019:"2200", 2018:"2100", 2017:"2100", 2016:"2100", 2015:"2100", 2014:"2000"};
   function roundInputs() {
     var classname = document.getElementsByClassName("input-value");
+    var schLiving = 0;
+    var schNonLiving = 0;
     for (var i = 0; i < classname.length; i++) {
       if(classname[i].type == "number" && classname[i].value != "") {
         var value = parseFloat(classname[i].value);
         classname[i].value = Math.round(value).toString();
       }
     }
+  }
+  function sumScholarships() {
+    var bodyRef = document.getElementById('scholarshipsAndGrantsTable').getElementsByTagName('tbody')[0];
+    var results = {'living':0, 'nonLiving':0};
+    //First row in tbody is actually the header. :(
+    for (var j = 1; j < bodyRef.rows.length; j++) {
+      var row = bodyRef.rows[j];
+      var rowInputs = row.getElementsByTagName('input');
+      var checked = rowInputs[2].checked;
+      var amt = parseInt(rowInputs[1].value) || 0;
+      if (checked) {
+        results['living'] += amt;
+      } else {
+        results['nonLiving'] += amt;
+      }
+    }
+    return results;
   }
   function updateOutputs() {
     roundInputs();
@@ -58,8 +77,11 @@
     var qualifiedExpensesCredit = totalBooks + totalTuitionCredit;
     document.getElementById("totalQualifiedCredit").textContent = formatter.format(qualifiedExpensesCredit);
     //Grants and scholarships
+    var grantFromTable = sumScholarships();
     var grantLiving = parseInt(document.getElementById("grantLiving").value) || 0;
+    grantLiving += grantFromTable['living'];
     var grantNonLiving = parseInt(document.getElementById("grantNonLiving").value) || 0;
+    grantNonLiving += grantFromTable['nonLiving'];
     var distributions = parseInt(document.getElementById("distributions").value) || 0;
     var totalGrantsScholarships = grantLiving + grantNonLiving + distributions;
     document.getElementById("totalGrantsScholarships").textContent = formatter.format(totalGrantsScholarships);
