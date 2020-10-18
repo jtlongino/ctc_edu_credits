@@ -3,8 +3,6 @@
   var scholarshipIncomeMax = {2020:"2200", 2019:"2200", 2018:"2100", 2017:"2100", 2016:"2100", 2015:"2100", 2014:"2000"};
   function roundInputs() {
     var classname = document.getElementsByClassName("input-value");
-    var schLiving = 0;
-    var schNonLiving = 0;
     for (var i = 0; i < classname.length; i++) {
       if(classname[i].type == "number" && classname[i].value != "") {
         var value = parseFloat(classname[i].value);
@@ -25,6 +23,25 @@
         results['living'] += amt;
       } else {
         results['nonLiving'] += amt;
+      }
+    }
+    return results;
+  }
+  function sumExpenses() {
+    var bodyRef = document.getElementById('expensesTable').getElementsByTagName('tbody')[0];
+    var results = {'tuition':0, 'credit':0};
+    //First row in tbody is actually the header. :(
+    for (var j = 1; j < bodyRef.rows.length; j++) {
+      var row = bodyRef.rows[j];
+      var rowInputs = row.getElementsByTagName('input');
+      var tuitionChecked = rowInputs[2].checked;
+      var creditChecked = rowInputs[3].checked;
+      var amt = parseInt(rowInputs[1].value) || 0;
+      if (tuitionChecked) {
+        results['tuition'] += amt;
+      }
+      if (creditChecked) {
+        results['credit'] += amt;
       }
     }
     return results;
@@ -56,15 +73,16 @@
       document.getElementById('supplyExp').disabled = false;
     }
     //Calculate total tuition for scholarships and grants
+    var expensesFromTable = sumExpenses();
     var springTuitionAll = parseInt(document.getElementById("springTuitionAll").value) || 0;
     var summerTuitionAll = parseInt(document.getElementById("summerTuitionAll").value) || 0;
     var fallTuitionAll = parseInt(document.getElementById("fallTuitionAll").value) || 0;
-    var totalTuitionAll = springTuitionAll + summerTuitionAll + fallTuitionAll;
+    var totalTuitionAll = springTuitionAll + summerTuitionAll + fallTuitionAll + expensesFromTable['tuition'];
     //Calculate total tuition for credits
     var springTuitionCredit = parseInt(document.getElementById("springTuitionCredit").value) || 0;
     var summerTuitionCredit = parseInt(document.getElementById("summerTuitionCredit").value) || 0;
     var fallTuitionCredit = parseInt(document.getElementById("fallTuitionCredit").value) || 0;
-    var totalTuitionCredit = springTuitionCredit + summerTuitionCredit + fallTuitionCredit;
+    var totalTuitionCredit = springTuitionCredit + summerTuitionCredit + fallTuitionCredit + expensesFromTable['credit'];
     //Calculate book and supply expenses
     var bookExpenses = parseInt(document.getElementById("bookExp").value) || 0;
     var supplyExpenses = parseInt(document.getElementById("supplyExp").value) || 0;
