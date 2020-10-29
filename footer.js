@@ -46,10 +46,13 @@
     }
     return results;
   }
+  function getTaxYear() {
+    return parseInt(document.getElementById('taxYearInput').value)||2020;
+  }
   function updateOutputs() {
     roundInputs();
     //Update Year
-    var taxYear = parseInt(document.getElementById('taxYearInput').value)||2020;
+    var taxYear = getTaxYear();
     var taxYearPlusOne = taxYear + 1;
     var yearSpans = document.getElementsByClassName("taxYear");
     for(i in yearSpans) { yearSpans[i].textContent = taxYear.toString(); }
