@@ -70,7 +70,7 @@
     <input type="number" class="input-value" id="schAmt${scholarshipRows}"/>
  </div></td>
  <td style="text-align:center;"><div class="paragraph">
-   <input type="checkbox" id="schLiving${scholarshipRows}"/>
+   <input type="checkbox" class="input-value" id="schLiving${scholarshipRows}"/>
  </div></td>`;
     var rowInputs = newRow.getElementsByClassName("input-value");
     for (var i = 0; i < rowInputs.length; i++) {
@@ -80,6 +80,15 @@
     for (var i = 0; i < rowInputs.length; i++) {
       rowInputs[i].addEventListener('change', updateScholarshipTable, false);
     }
+  }
+  function removeScholarshipRow() {
+    var table = document.getElementById('scholarshipsAndGrantsTable');
+    var rowCount = table.rows.length;
+
+    table.deleteRow(rowCount -1);
+    
+    scholarshipRows--;
+    updateScholarshipTable();
   }
   function updateScholarshipRows() {
     var bodyRef = document.getElementById('scholarshipsAndGrantsTable').getElementsByTagName('tbody')[0];
@@ -105,6 +114,8 @@
   for (var i = 0; i < elements.length; i++) {
       elements[i].addEventListener('change', updateScholarshipTable, false);
   }
-  var scholarshipButton = document.getElementById("add-scholarship");
-  scholarshipButton.addEventListener('click', addScholarshipRow, false);
+  var addScholarshipButton = document.getElementById("add-scholarship");
+  addScholarshipButton.addEventListener('click', addScholarshipRow, false);
+  var removeScholarshipButton = document.getElementById("remove-scholarship");
+  removeScholarshipButton.addEventListener('click', removeScholarshipRow, false);  
 </script>
