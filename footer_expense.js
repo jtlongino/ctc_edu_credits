@@ -507,11 +507,11 @@
       elements[i].addEventListener('change', updateExpensesTable, false);
   }
   var addExpenseButton = document.getElementById("add-expense");
-  addExpenseButton.addEventListener('click', addExpenseRow, false);
+  addExpenseButton.addEventListener('change', addExpenseRow, false);
   var removeExpenseButton = document.getElementById("remove-expense");
-  removeExpenseButton.addEventListener('click', removeExpenseRow, false);
+  removeExpenseButton.addEventListener('change', removeExpenseRow, false);
   var schoolSelect = document.getElementById("exp-school-select");
-  schoolSelect.addEventListener('click', updateExpenseList, false);
+  schoolSelect.addEventListener('change', updateExpenseList, false);
   document.addEventListener('DOMContentLoaded', populateExpenseSelect, false);
 
 </script>
