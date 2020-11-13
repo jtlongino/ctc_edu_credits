@@ -507,9 +507,9 @@
       elements[i].addEventListener('change', updateExpensesTable, false);
   }
   var addExpenseButton = document.getElementById("add-expense");
-  addExpenseButton.addEventListener('change', addExpenseRow, false);
+  addExpenseButton.addEventListener('click', addExpenseRow, false);
   var removeExpenseButton = document.getElementById("remove-expense");
-  removeExpenseButton.addEventListener('change', removeExpenseRow, false);
+  removeExpenseButton.addEventListener('click', removeExpenseRow, false);
   var schoolSelect = document.getElementById("exp-school-select");
   schoolSelect.addEventListener('change', updateExpenseList, false);
   document.addEventListener('DOMContentLoaded', populateExpenseSelect, false);
