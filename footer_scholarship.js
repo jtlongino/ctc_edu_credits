@@ -115,7 +115,7 @@
       elements[i].addEventListener('change', updateScholarshipTable, false);
   }
   var addScholarshipButton = document.getElementById("add-scholarship");
-  addScholarshipButton.addEventListener('change', addScholarshipRow, false);
+  addScholarshipButton.addEventListener('click', addScholarshipRow, false);
   var removeScholarshipButton = document.getElementById("remove-scholarship");
-  removeScholarshipButton.addEventListener('change', removeScholarshipRow, false);  
+  removeScholarshipButton.addEventListener('click', removeScholarshipRow, false);  
 </script>
