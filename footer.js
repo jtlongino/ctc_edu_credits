@@ -202,3 +202,14 @@
   }
   document.addEventListener('DOMContentLoaded', updateOutputs, false);
 </script>
+<style>
+@media print
+{
+  table { page-break-after:auto }
+  tr    { page-break-inside:avoid; page-break-after:auto }
+  td    { page-break-inside:avoid; page-break-after:auto }
+  div   { page-break-inside:avoid; }
+  thead { display:table-header-group }
+  tfoot { display:table-footer-group }
+}
+</style>
