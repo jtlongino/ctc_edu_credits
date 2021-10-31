@@ -1,6 +1,6 @@
 <script type="text/javascript">
   var formatter = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0,});
-  var scholarshipIncomeMax = {2021:"2200", 2020:"2200", 2019:"2200", 2018:"2100", 2017:"2100", 2016:"2100", 2015:"2100", 2014:"2000"};
+  var scholarshipIncomeMax = {2020:"2200", 2019:"2200", 2018:"2100", 2017:"2100", 2016:"2100", 2015:"2100", 2014:"2000"};
   function roundInputs() {
     var classname = document.getElementsByClassName("input-value");
     for (var i = 0; i < classname.length; i++) {
@@ -47,8 +47,7 @@
     return results;
   }
   function getTaxYear() {
-    var curYear = new Date().getFullYear();
-    return parseInt(document.getElementById('taxYearInput').value)||curYear;
+    return parseInt(document.getElementById('taxYearInput').value)||2020;
   }
   function updateOutputs() {
     roundInputs();
@@ -78,15 +77,9 @@
     }
     //Calculate total tuition for scholarships and grants
     var expensesFromTable = sumExpenses();
-    var springTuitionAll = parseInt(document.getElementById("springTuitionAll").value) || 0;
-    var summerTuitionAll = parseInt(document.getElementById("summerTuitionAll").value) || 0;
-    var fallTuitionAll = parseInt(document.getElementById("fallTuitionAll").value) || 0;
-    var totalTuitionAll = springTuitionAll + summerTuitionAll + fallTuitionAll + expensesFromTable['tuition'];
+    var totalTuitionAll = expensesFromTable['tuition'];
     //Calculate total tuition for credits
-    var springTuitionCredit = parseInt(document.getElementById("springTuitionCredit").value) || 0;
-    var summerTuitionCredit = parseInt(document.getElementById("summerTuitionCredit").value) || 0;
-    var fallTuitionCredit = parseInt(document.getElementById("fallTuitionCredit").value) || 0;
-    var totalTuitionCredit = springTuitionCredit + summerTuitionCredit + fallTuitionCredit + expensesFromTable['credit'];
+    var totalTuitionCredit = expensesFromTable['credit'];
     //Calculate book and supply expenses
     var bookExpenses = parseInt(document.getElementById("bookExp").value) || 0;
     var supplyExpenses = parseInt(document.getElementById("supplyExp").value) || 0;
@@ -100,10 +93,8 @@
     document.getElementById("totalQualifiedCredit").textContent = formatter.format(qualifiedExpensesCredit);
     //Grants and scholarships
     var grantFromTable = sumScholarships();
-    var grantLiving = parseInt(document.getElementById("grantLiving").value) || 0;
-    grantLiving += grantFromTable['living'];
-    var grantNonLiving = parseInt(document.getElementById("grantNonLiving").value) || 0;
-    grantNonLiving += grantFromTable['nonLiving'];
+    var grantLiving = grantFromTable['living'];
+    var grantNonLiving = grantFromTable['nonLiving'];
     var distributions = parseInt(document.getElementById("distributions").value) || 0;
     var totalGrantsScholarships = grantLiving + grantNonLiving + distributions;
     document.getElementById("totalGrantsScholarships").textContent = formatter.format(totalGrantsScholarships);
@@ -209,7 +200,7 @@
   table { page-break-after:auto }
   tr    { page-break-inside:avoid; page-break-after:auto }
   td    { page-break-inside:avoid; page-break-after:auto }
-  div   { page-break-inside:avoid; }
+  div   { page-break-inside:avoid; page-break-after:auto }
   thead { display:table-header-group }
   tfoot { display:table-footer-group }
 }
