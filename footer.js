@@ -1,6 +1,6 @@
 <script type="text/javascript">
   var formatter = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0,});
-  var scholarshipIncomeMax = {2020:"2200", 2019:"2200", 2018:"2100", 2017:"2100", 2016:"2100", 2015:"2100", 2014:"2000"};
+  var scholarshipIncomeMax = {2021:"2200", 2020:"2200", 2019:"2200", 2018:"2100", 2017:"2100", 2016:"2100", 2015:"2100", 2014:"2000"};
   function roundInputs() {
     var classname = document.getElementsByClassName("input-value");
     for (var i = 0; i < classname.length; i++) {
@@ -47,7 +47,8 @@
     return results;
   }
   function getTaxYear() {
-    return parseInt(document.getElementById('taxYearInput').value)||2020;
+    var curYear = new Date().getFullYear();
+    return parseInt(document.getElementById('taxYearInput').value)||curYear;
   }
   function updateOutputs() {
     roundInputs();
