@@ -441,7 +441,7 @@
     newRow.style.cssText = "display: table-row;vertical-align: inherit;border-color: inherit;";
     newRow.innerHTML = 
 `<td><div class="paragraph">
-  <input type="text" id="expName${expenseRows}" size="40" class="exp-input-name" list="expensesList"/>
+  <input type="text" id="expName${expenseRows}" size="35" class="exp-input-name" list="expensesList"/>
 </div></td>
 <td>
   <select name="term" id="expTermSelect${expenseRows}">
