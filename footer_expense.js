@@ -435,7 +435,6 @@
     updateExpensesTable();
   }
   function addExpenseRow() {
-    var taxYear = getTaxYear(); //In main footer
     expenseRows++;
     var tableRef = document.getElementById('expensesTable').getElementsByTagName('tbody')[0];
     var newRow = tableRef.insertRow(tableRef.rows.length);
@@ -447,9 +446,9 @@
 <td>
   <select name="term" id="expTermSelect${expenseRows}">
     <option value="">--Select--</option>
-    <option value="spring">Spring ${taxYear}</option>
-    <option value="summer">Summer ${taxYear}</option>
-    <option value="fall">Fall ${taxYear}</option>
+    <option value="spring">Spring</option>
+    <option value="summer">Summer</option>
+    <option value="fall">Fall</option>
     <option value="other">Other</option>
   </select>
 </td>
