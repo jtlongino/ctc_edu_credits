@@ -461,6 +461,12 @@
 <td style="text-align:center;"><div class="paragraph">
   <input type="checkbox" class="input-value" id="expCredit${expenseRows}"/>
 </div></td>`;
+    // If there is a previous row, set default academic term to the term
+    // used in the previous row
+    if (expenseRows > 1) {
+      lastRowIndex = tableRef.rows[expenseRows-1].querySelector("select[name=term]").selectedIndex;
+      newRow.querySelector("select[name=term]").selectedIndex = lastRowIndex;
+    }      
     var rowInputs = newRow.getElementsByClassName("input-value");
     for (var i = 0; i < rowInputs.length; i++) {
       rowInputs[i].addEventListener('change', updateOutputs, false);
