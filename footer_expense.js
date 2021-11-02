@@ -77,6 +77,9 @@
       "Bus": [true, false],
       "Computer service": [true, true],
       "Correspondence course": [true, true],
+      "Desig Tuit Res Ungrd Fall": [true, true],
+      "Desig Tuit Res Ungrd Spring": [true, true],
+      "Desig Tuit Res Ungrd Summer": [true, true],
       "Electronic course": [true, true],
       "Environmental service": [true, true],
       "Excessive hours tuition": [true, true],
@@ -106,7 +109,10 @@
       "Student Service": [true, false],
       "Student Success": [true, true],
       "Study Abroad Course": [true, true],
-      "Texas Resident": [true, true]
+      "Texas Resident": [true, true],
+      "Tuition Res Ungrd Fall": [true, true],
+      "Tuition Res Ungrd Spring": [true, true],
+      "Tuition Res Ungrd Summer": [true, true]
     },
     "st-edwards" : {
       "display-name" : "St. Edwards",
