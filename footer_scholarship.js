@@ -45,10 +45,14 @@
     "Tuition Scholarship for Resident Student":false,
     "Undergrad Assistance Grant":false,
     "U.S. Department of Veteran Affairs":true,
+    "UT Austin - Scholarship from SS1":false,
+    "UT Austin - Financial Aid Scholarships":true,
+    "UT Austin - Scholarships (tuition and fees)":false,
+    "UT Austin - Scholarships and Grants":true,
     "Walther Grant":false,
     "W.E.B. DuBois Scholar (Huston-Tillotson)":false,
     "Workforce":false,
-    "Your Private Scholarship (St. Edwards)":false,
+    "Your Private Scholarship (St. Edwards)":false
   };
   var schList = document.getElementById('scholarshipList');
   var scholarshipsUpper = {};
