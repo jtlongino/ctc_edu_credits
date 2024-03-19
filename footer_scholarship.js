@@ -24,6 +24,7 @@
     "Iraq and Afghanistan Service Grant":false,
     "Maverick (St. Edwards)":false,
     "McDonald’s Scholarship":true,
+    "Moreau Scholarship":true,
     "Redleaf Properties Endowed":true,
     "Service Scholarship (St. Edwards)":false,
     "Simmang Scholarship SON":false,
